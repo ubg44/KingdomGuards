@@ -9,7 +9,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
 
 
-    <title>Vex 7 Unblocked - ubg235 GameDistribution</title>
+    <title>Vex 6 Unblocked - ubg235 GameDistribution</title>
 
     <link rel="icon" type="image/png" href="assets/icon.png">
     <!-- For apple devices -->
@@ -19,42 +19,23 @@
 
 
 
+
+
+
+
+    <script src="patch/js/azerion-libs-m.js" defer></script>
+
 </head>
 
 <body style="overflow:hidden;">
     <div id="content"> </div>
-    <div id="loader">Loading...</div>
     <div id="orientation"></div>
 
     <script type="text/javascript">
-        var _azerionIntegration = {
-            "gdId": "0c454c9562d249d28ba3a2b50564042c",
-            "advType": "gd",
-            "rtgEnabled": true,
-            "lbEnabled": false,
-            "fbType": "dummy",
-            "alxType": "std",
-            "af": false,
-            "sa": false,
-            "la": false,
-            "bd": 0,
-            "playBtn": true,
-            "cp": false,
-            "build": {
-                "version": "tc-53",
-                "timeStamp": 1676463075693,
-                "h": "3f53fe3a"
-            }
-        }
+        var gameName = "vex6.min.js";
 
 
-        var libs = [];
-
-
-        var gameName = "vex7.min.js";
-
-
-        var enableAnalytics, azAdWrapper, _azFeedback;
+        var _azFeedback;
 
 
 
@@ -63,7 +44,7 @@
         //This all here is for cache busting;
         function addScript(src, buster, callback) {
             var s = document.createElement('script');
-            s.setAttribute('src', src + '?v=' + buster);
+            s.setAttribute('src', src);
             if (typeof callback === 'function') {
                 s.onload = callback;
             }
@@ -74,11 +55,11 @@
 
         addScript('version.js', Date.now(), function() {
 
-            addScript(gameName, version, function() {});
+            addScript(gameName, Date.now(), function() {});
 
         });
     </script>
-  <script src="js/analytics_ubg_v1_4.js"></script>
+    <script src="js/analytics_ubg_v1_4.js"></script>
 </body>
 
 </html>

@@ -10,6 +10,13 @@ body,html{
     -webkit-user-select: none;
 }
 
+#content {
+    width: 100%;
+    height: 100%;
+    outline:0;
+    position:fixed;
+}
+
 #orientation {
     margin: 0 auto;
     position: fixed;
