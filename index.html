@@ -1,373 +1,47 @@
-<!DOCTYPE html>
-<!--
-  NOTES:
-  1. All tokens are represented by '$' sign in the template.
-  2. You can write your code only wherever mentioned.
-  3. All occurrences of existing tokens will be replaced by their appropriate values.
-  4. Blank lines will be removed automatically.
-  5. Remove unnecessary comments before creating your template.
--->
-<html>
+<!--<!DOCTYPE HTML>-->
+<html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="authoring-tool" content="Adobe_Animate_CC">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>Adam And Eve 7 Unblocked - ubg235 GameDistribution</title>
-<script src="patch/cdn/createjs.1.0.0.min.js"></script>
-<script src="aae7_html5.js?1580323654962"></script>
-<script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+    <meta name="authoring-tool" content="Adobe_Animate_CC">
+
+    <title>Adam and Eve 6 Unblocked - ubg235 GameDistribution</title>
 
 
-var mobiledevice;
-var IOS;
-function detectmob() {
- if( navigator.userAgent.match(/Android/i)
- || navigator.userAgent.match(/webOS/i)
- || navigator.userAgent.match(/iPhone/i)
- || navigator.userAgent.match(/iPad/i)
- || navigator.userAgent.match(/iPod/i)
- || navigator.userAgent.match(/BlackBerry/i)
- || navigator.userAgent.match(/Windows Phone/i)
- ){
-    mobiledevice = 1;
-  }
- else {
-    mobiledevice = 0;
-  }
-  if( navigator.userAgent.match(/iPhone/i)
-    || navigator.userAgent.match(/iPad/i)
-    || navigator.userAgent.match(/iPod/i)){
-        IOS = 1;
-    }
-    else{
-        IOS = 0;
-    }
-}
-
-detectmob();
-
-var canvas, stage, exportRoot, anim_container, dom_overlay_container, fnStartAnimation, lib;
-var hudba = true;
-var rewardedAd = false;
-var hint = false;
-createjs.Sound.setMute(true);
+    <script src="adam-and-eve-6.min.js?1510742886522"></script>
 
 
-var loadingBg = new createjs.Bitmap("images/loading/Bitmap1.png");
-var rotateBg = new createjs.Bitmap("images/loading/rotate.jpg");
-var rotateBg2 = new createjs.Bitmap("images/loading/rotate2.jpg");
-var progressBar = new createjs.Shape();
-
-var progressBar = new createjs.Shape();
-
-var reklama = false;
-
-rotateBg.scaleX = 1280/1024;
-rotateBg2.scaleX = rotateBg2.scaleY = 2;
-
-loadingBg.x = 0;
-loadingBg.y = 0;
-
-createjs.Sound.alternateExtensions = ["ogg"];
-
-function init() {
-  canvas = document.getElementById("canvas");
-  stage = new createjs.Stage(canvas);
-  stage.addChild(loadingBg);
-  stage.addChild(progressBar);
-  anim_container = document.getElementById("animation_container");
-  dom_overlay_container = document.getElementById("dom_overlay_container");
-  var comp=AdobeAn.getComposition("F4F7E832DCCC6345B014B0D3A4921B01");
-  var lib=comp.getLibrary();
-  createjs.MotionGuidePlugin.install();
-  var loader = new createjs.LoadQueue(true);
-  loader.installPlugin(createjs.Sound);
-  loader.addEventListener("fileload", function(evt){handleFileLoad(evt,comp)});
-  loader.addEventListener("progress", handleProgress);
-  loader.addEventListener("complete", function(evt){handleComplete(evt,comp)});
-  var lib=comp.getLibrary();
-  loader.loadManifest(lib.properties.manifest);
-  resize();
-
-  var initialized = false;
-
-  window["GD_OPTIONS"] = {
-    "gameId": "965ef15897d54c1a8df450d0fe293541",
-    "onEvent": function(event) {
-        switch (event.name) {
-            case "SDK_GAME_START":
-              console.log("SDK_GAME_START")
-              reklama = false;
-                if(hudba)
-                  createjs.Sound.setMute(false);
-                if(exportRoot && exportRoot.currentFrame <= 1)
-                {
-                    createjs.Ticker.addEventListener("tick", stage);
-                }
-                if(rewardedAd){
-                  rewardedAd = false;
-                  hints_num = 5;
-                  exportRoot.hintBtn.count.gotoAndStop(hints_num);
-                  localStorage.aae7p1_hints = hints_num;
-                  closeHint();
-                }
-                stage.update();
-                break;
-            case "SDK_GAME_PAUSE":
-                // pause game logic / mute audio
-                reklama = true;
-                console.log("SDK_GAME_PAUSE")
-                createjs.Sound.setMute(true);
-                if(exportRoot && exportRoot.currentFrame > 1)
-                    pauseF();
-                else
-                {
-                    createjs.Ticker.removeEventListener("tick", stage);
-                    stage.update();
-                }
-                break;
-        }
-    },
-};
-(function(d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) return;
-      js = d.createElement(s);
-      js.id = id;
-      js.src = 'patch/js/gd-sdk.js?html5.api.gamedistribution.com/main.min.js';
-      fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'gamedistribution-jssdk'));
-    
-}
-function handleFileLoad(evt, comp) {
-  var images=comp.getImages();
-  if (evt && (evt.item.type == "image")) { images[evt.item.id] = evt.result; }
-  resize();
-}
-function handleProgress(event) {
-  progressBar.graphics.beginFill("#ffcc33").drawRect(0,740,1280*event.progress,47);
-  stage.update();
-  //resize();
-}
-function handleComplete(evt,comp) {
-  //This function is always called, irrespective of the content. You can use the variable "stage" after it is created in token create_stage.
-  lib=comp.getLibrary();
-  var ss=comp.getSpriteSheet();
-  var queue = evt.target;
-  var ssMetadata = lib.ssMetadata;
-  for(i=0; i<ssMetadata.length; i++) {
-    ss[ssMetadata[i].name] = new createjs.SpriteSheet( {"images": [queue.getResult(ssMetadata[i].name)], "frames": ssMetadata[i].frames} )
-  }
-  exportRoot = new lib.aae7_html5();
-  stage = new lib.Stage(canvas);
-  stage.enableMouseOver();
-  //Registers the "tick" event listener.
-  fnStartAnimation = function() {
-    stage.addChild(exportRoot);
-    createjs.Ticker.setFPS(lib.properties.fps);
-    createjs.Ticker.addEventListener("tick", stage);
-  }
-  AdobeAn.compositionLoaded(lib.properties.id);
-  createjs.Touch.enable(stage);
-  fnStartAnimation();
-  resize();
-
-  window.addEventListener('resize', doubleResize);
-
-   function getHiddenProp(){
-        var prefixes = ['webkit','moz','ms','o'];
-
-        // If 'hidden' is natively supported, returns it
-        if ('hidden' in document) return 'hidden';
-
-        // Otherwise, loops through all known prefixes
-        // until 'hidden' is found
-        for (var i = 0; i < prefixes.length; i++){
-            if ((prefixes[i] + 'Hidden') in document)
-                return prefixes[i] + 'Hidden';
-        }
-
-        // In all other cases, 'hidden' is not supported
-        return null;
-    }
-
-
-    function isHidden() {
-        var prop = getHiddenProp();
-        if (!prop) return false;
-
-        return document[prop];
-    }
-
-    function onVisibilityChange(event) {
-        if (isHidden())
-        {
-            createjs.Sound.setMute(true);
-            if(exportRoot.currentFrame > 1 && !exportRoot.continuePopup.visible)
-                pauseF();
-            else
-            {
-                createjs.Ticker.removeEventListener("tick", stage);
-                stage.update();
-            }
-        }
-        else
-        {
-            //getDeviceOrientation();
-            if(!reklama){
-              if(hudba)
-                  createjs.Sound.setMute(false);
-              //if(exportRoot.currentFrame > 0)
-              //    continueF();
-              if(exportRoot.currentFrame <= 1 || exportRoot.continuePopup.visible)
-              {
-                  createjs.Ticker.addEventListener("tick", stage);
-                  stage.update();
-              }
-            }
-        }
-    }
-
-    var visProp = getHiddenProp();
-    if (visProp) {
-        // Attaches the correct event name, depending on the browser's renderer
-        document.addEventListener(visProp.replace(/[H|h]idden/,'') + 'visibilitychange', onVisibilityChange);
-    }
-
-    window.onblur = function(e) {
-        //console.log("blur");
-        createjs.Sound.setMute(true);
-        if(exportRoot.currentFrame > 1 && !exportRoot.continuePopup.visible)
-            pauseF();
-        else
-        {
-            createjs.Ticker.removeEventListener("tick", stage);
-            stage.update();
-        }
-    };
-     window.onfocus = function(e) {
-        //console.log("focus");
-        //getDeviceOrientation();
-        if(!reklama){
-          if(hudba)
-              createjs.Sound.setMute(false);
-
-          //if(exportRoot.currentFrame > 0)
-          //    continueF();
-          if(exportRoot.currentFrame <= 1 || exportRoot.continuePopup.visible)
-          {
-              createjs.Ticker.addEventListener("tick", stage);
-              stage.update();
-          }
-        }
-    };
-
-
-    window.onpagehide = function(e) {
-        createjs.Sound.setMute(true);
-        if(exportRoot.currentFrame > 1 && !exportRoot.continuePopup.visible)
-            pauseF();
-        else
-        {
-            createjs.Ticker.removeEventListener("tick", stage);
-            stage.update();
-        }
-    };
-
-    window.onpageshow = function(e) {
-        //getDeviceOrientation();
-        if(!reklama){
-          if(hudba)
-              createjs.Sound.setMute(false);
-          //if(exportRoot.currentFrame > 0)
-          //    continueF();
-          if(exportRoot.currentFrame <= 1 || exportRoot.continuePopup.visible)
-          {
-              createjs.Ticker.addEventListener("tick", stage);
-              stage.update();
-          }
-        }
-    };
-}
-function playSound(id, loop) {
-	return createjs.Sound.play(id, {'interrupt':createjs.Sound.INTERRUPT_EARLY, 'loop': loop});
-}
-function resize(){
-    if ((window.innerHeight < window.innerWidth && navigator.userAgent.match("Mac OS"))
-                    ||((screen.width==720)&&(screen.height==1280)&& window.innerHeight < window.innerWidth && navigator.userAgent.match("Android")) 
-                    || ((screen.width!=720)&&(screen.height!=1280) && screen.height < screen.width && navigator.userAgent.match("Android"))
-                    || (window.innerHeight < window.innerWidth && navigator.userAgent.match(/BlackBerry/i))
-                    || (window.innerHeight < window.innerWidth && navigator.userAgent.match(/Windows Phone/i))
-                    || !mobiledevice)
-    {
-          window.scrollTo(0, 0);
-          stage.removeChild(rotateBg);
-          stage.removeChild(rotateBg2);
-          resizeFunc();
-    }
-    else{
-          window.scrollTo(0, 0);
-          stage.addChild(rotateBg);
-          stage.addChild(rotateBg2);
-          resizeFunc();
-          rotateBg2.x = 1280/2 - rotateBg2.getBounds().width;
-          rotateBg2.y = 1024/2 - rotateBg2.getBounds().height;
-    }
-  }
-
-var resizeFunc = function(){
-  var GAME_WIDTH = 1280;
-  var GAME_HEIGHT = 1024;
-  var GAME_MIN_HEIGHT = 576;
-  var width = window.innerWidth || document.body.clientWidth;
-  var height = window.innerHeight || document.body.clientHeight;
-
-  var ratio = Math.min(
-    height / GAME_MIN_HEIGHT,
-    width / GAME_WIDTH
-    );
-
-  canvas.style.height = dom_overlay_container.style.height = anim_container.style.height = GAME_HEIGHT*ratio +"px";
-  canvas.style.width = dom_overlay_container.style.width = anim_container.style.width = GAME_WIDTH*ratio +"px";
-
-  var top_style = 50;
-  if( IOS){
-  if(width/height > 2.1)
-  top_style = 47;
-  }
-
-  posun_windowX = Math.round((width-GAME_WIDTH*ratio)/2);
-  posun_windowY = Math.round((height-GAME_HEIGHT*ratio)/2);
-
-  canvas.style.position = 'absolute';
-  canvas.style.left = '50%';
-  canvas.style.top = top_style+'%';
-  canvas.style.transform = 'translate3d( -50%, -50%, 0 )';
-
-  dom_overlay_container.style.position = 'absolute';
-  dom_overlay_container.style.left = '50%';
-  dom_overlay_container.style.top = top_style+'%';
-  dom_overlay_container.style.transform = 'translate3d( -50%, -50%, 0 )';
-
-  anim_container.style.position = 'fixed';
-  anim_container.style.left = '50%';
-  anim_container.style.top = top_style+'%';
-  anim_container.style.transform = 'translate3d( -50%, -50%, 0 )';
-}
-
-  function doubleResize(){
-    resize();
-    setTimeout(function(){resize();},500);
-  }
-</script>
-<!-- write your code here -->
 </head>
-<body onload="init();" style="margin:0px;" onresize="doubleResize();">
-  <div id="animation_container" style="background-color:rgba(1, 1, 1, 1.00); width:1280px; height:1024px">
-    <canvas id="canvas" width="1280" height="1024" style="position: absolute; display: block; background-color:rgba(74, 177, 255, 1.00);"></canvas>
-    <div id="dom_overlay_container" style="pointer-events:none; overflow:hidden; width:1280px; height:1024px; position: absolute; left: 0px; top: 0px; display: block;">
+
+<body onload="init();" style="margin:0px; overflow: hidden">
+    <div id="loader">Loading...</div>
+    <div id="animation_container" style="background-color:rgba(255, 255, 255, 1.00); width:1280px; height:1024px">
+        <canvas id="canvas" width="1280" height="1024" style="position: absolute; display: block; background-color:rgba(255, 255, 255, 1.00);"></canvas>
+        <div id="dom_overlay_container" style="pointer-events:none; overflow:hidden; width:1280px; height:1024px; position: absolute; left: 0px; top: 0px; display: block;">
+        </div>
     </div>
-  </div>
-  <script src="js/analytics_ubg_v1_4.js"></script>
+    <script type="text/javascript">
+        var enableAnalytics, version;
+
+
+
+
+
+
+
+
+        //This all here is for cache busting;
+        function addScript(src, buster, callback) {
+            var s = document.createElement('script');
+            s.setAttribute('src', src + '?v=' + buster);
+            if (typeof callback === 'function') {
+                s.onload = callback;
+            }
+            document.body.appendChild(s);
+        }
+    </script>
+    <script src="js/analytics_ubg_v1_4.js"></script>
 </body>
+
 </html>
