@@ -1,2 +1,2 @@
-version="2";
-libs=["patch/cdn/phaser/2.2/phaser-ads.min.js", "patch/cdn/phaser/2.0/phaser-cachebuster.min.js", "patch/cdn/phaser/3.0/phaser-spine.min.js", "patch/cdn/phaser/1.0/phaser-super-storage.min.js", "patch/cdn/phaser/3.5/splash.min.js"];
+version="tc-241";
+libs=["patch/cdn/phaser/phaser-cachebuster.min.js","patch/cdn/phaser/phaser-i18next.min.js","patch/cdn/phaser/2.0/phaser-nineslice.min.js","patch/cdn/phaser/phaser-spine.min.js","patch/cdn/phaser/phaser-super-storage.min.js"];
