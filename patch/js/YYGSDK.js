@@ -15,7 +15,13 @@ YYG= {
       consoleLog("--fx--YYG--EventHandler--create--", arguments);
       callback();
     }
-  }  
+  },
+  Options: function() {
+    
+  },
+  ChannelType: {
+    YAD: false,
+  }
 }
 
 YYGamesList= [{
