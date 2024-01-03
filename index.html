@@ -1,136 +1,124 @@
 <!DOCTYPE html>
 <html lang="en-us">
-  <head>
-    <!--OTP version 1.2-->
+<head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Marble Dash Unblocked - ubg235 GameDistribution</title>
+    <title>Survivor In Rainbow Monster Unblocked - ubg235 GameDistribution</title>
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
-  </head>
-  <body style="overflow:hidden;">
-    <div id="unity-container" class="unity-desktop" style="width: 100%; height: 100%; overflow-x: hidden; overflow-y: hidden;">
-      <canvas id="unity-canvas" style="width: 100%; height: 100%; cursor: default;" ></canvas>
-      <div id="unity-loading-bar">
-        <div id="unity-logo"></div>
-        <div id="unity-progress-bar-empty">
-          <div id="unity-progress-bar-full"></div>
+    <link rel="stylesheet" href="patch/cdn/bootstrap.4.5.0.min.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700&amp;display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Dosis&amp;subset=latin-ext" />
+    <link rel="stylesheet" href="patch/cdn/fontawesome.5.12.0.all.css" />
+    <link rel="stylesheet" href="patch/cdn/ionicons.2.0.1.min.css" />
+    <script src="patch/cdn/jquery.3.5.1.min.js"></script>
+    <script src="patch/cdn/bootstrap.4.5.0.bundle.min.js"></script>
+</head>
+<body style="overflow:hidden;">
+    <div id="unity-container" class="unity-desktop">
+        <canvas id="unity-canvas"></canvas>
+        <div id="unity-loading-bar">
+            <h5 style="font-weight: inherit; font-size: 20px; color: floralwhite; margin-left: 20px">
+                Loading...
+            </h5>
+            <div class="progress" id="theBar" style="min-height: 40px; min-width: 400px; border-radius: 15px">
+                <div class="progress-bar bg-success progress-bar-animated prog"
+                     aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="progbar" style="width: 0%; font-size: 23px !important;">
+                    0%
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-
-    <button id="fullscreenbutton"></button>
-
     <script>
-      
-      //---------------------- FullScreen
-      var fullscreenButton = document.getElementById("fullscreenbutton");
-      fullscreenButton.style.position = "absolute";
-      fullscreenButton.style.right = "20px";
-      fullscreenButton.style.bottom = "20px";
-      fullscreenButton.style.width = "40px";
-      fullscreenButton.style.height = "40px";
-      fullscreenButton.style.backgroundImage = "url('TemplateData/fullscreen-button.png')";
-      fullscreenButton.style.backgroundRepeat = "no-repeat";
-      fullscreenButton.style.backgroundSize = "cover";
+        var buildUrl = "Build";
+        var loaderUrl = buildUrl + "/SurvivalRainbow.loader.js";
+        var config = {
+            dataUrl: buildUrl + "/SurvivalRainbow.data.unityweb",
+            frameworkUrl: buildUrl + "/SurvivalRainbow.framework.js.unityweb",
+            codeUrl: buildUrl + "/SurvivalRainbow.wasm.unityweb",
+            streamingAssetsUrl: "StreamingAssets",
+            companyName: "Dmobin",
+            productName: "Survivor In Rainbow Monster",
+            productVersion: "1.1.1",
+        };
 
-      fullscreenButton.addEventListener("click", function()
-      {
-          var doc = window.document;
-          var docEl = doc.documentElement;
+        var container = document.querySelector("#unity-container");
+        var canvas = document.querySelector("#unity-canvas");
+        var loadingBar = document.querySelector("#unity-loading-bar");
+        var mobileWarning = document.querySelector("#unity-mobile-warning");
 
-          var requestFullScreen = docEl.requestFullscreen || docEl.mozRequestFullScreen || docEl.webkitRequestFullScreen || docEl.msRequestFullscreen;
-          var cancelFullScreen = doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen || doc.msExitFullscreen;
+        //if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+        //    container.className = "unity-mobile";
+        //    config.devicePixelRatio = 1;
+        //    mobileWarning.style.display = "block";
+        //    setTimeout(() => {
+        //        mobileWarning.style.display = "none";
+        //    }, 5000);
+        //} else {
+        //    canvas.style.width = "960px";
+        //    canvas.style.height = "600px";
+        //}
+        loadingBar.style.display = "block";
 
-          if(!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement && !doc.msFullscreenElement)
-          {
-            requestFullScreen.call(docEl);
-          }
-          else
-          {
-            cancelFullScreen.call(doc);
-          }
-      });
-      //----------------------
-      
-        //Lock Scaling/Zooming
-        document.getElementsByTagName("head")[0].innerHTML += '<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">';
-        document.getElementsByTagName("head")[0].innerHTML += '<meta name="HandheldFriendly" content="true" />';
+        var script = document.createElement("script");
+        script.src = loaderUrl;
+        script.onload = () => {
+            createUnityInstance(canvas, config, (progress) => {
+                var progs = document.getElementsByClassName("prog")
+                for (i = 0; i < progs.length; i++) {
+                    canvas.progress = progs[i];
+                    canvas.progress.setAttribute("aria-valuenow", (105.2 * progress));
+                    canvas.progress.setAttribute("style", "width: " + (105.2 * progress).toFixed(1) + "%; font-size: 23px !important");
+                    canvas.progress.innerText = (105.2 * progress).toFixed(1) + "%";
+                }
+                if (progress == 1) {
+                    var progs2 = document.getElementsByClassName("prog")
+                    for (i = 0; i < progs2.length; i++) {
+                        progs2[i].setAttribute("style", "display:none !important");;
+                    }
+                }
+            }).then((unityInstance) => {
+                loadingBar.style.display = "none";
+                onResize();
+            }).catch((message) => {
+                alert(message);
+            });
+        };
+        document.body.appendChild(script);
 
-        document.addEventListener("gesturestart", function (e)
-        {
-          e.preventDefault();
-        });
+        var scaleToFit = true;
 
-        document.addEventListener("gesturechange", function (e)
-        {
-          e.preventDefault();
-        });
-        document.addEventListener("gestureend", function (e)
-        {
-          e.preventDefault();
-        });
+        function onResize() {
+            var container = canvas.parentElement;
+            var w;
+            var h;
 
-      var container = document.querySelector("#unity-container");
-      var canvas = document.querySelector("#unity-canvas");
-      var loadingBar = document.querySelector("#unity-loading-bar");
-      var progressBarFull = document.querySelector("#unity-progress-bar-full");
+            if (scaleToFit) {
+                w = window.innerWidth;
+                h = window.innerHeight;
 
-      var buildUrl = "Build";
-      var loaderUrl = buildUrl + "/MarbleDash.loader.js";
-      var config = {
-        dataUrl: buildUrl + "/e467f7a17832fa164794a65c1658a828.data.unityweb",
-        frameworkUrl: buildUrl + "/54ec97bd50dc01058900f90d32795267.js.unityweb",
-        codeUrl: buildUrl + "/14fe969ea1555216feebd86309124d61.wasm.unityweb",
-        streamingAssetsUrl: "StreamingAssets",
-        companyName: "Friendzy",
-        productName: "Marble Dash",
-        productVersion: "0.2",
-      };
-      
-      //Mobile
-      if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) 
-      {
-        var meta = document.createElement('meta');
-        meta.name = 'viewport';
-        meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
-        document.getElementsByTagName('head')[0].appendChild(meta);
+                var r = 600 / 960;
 
-        container.className = "unity-mobile";
+                if (w * r > window.innerHeight) {
+                    w = Math.min(w, Math.ceil(h / r));
+                    h = Math.floor(w * r);
+                }
+                else {
+                    w = 960;
+                    h = 600;
+                }
+            }
 
-        canvas.style.width = "100%";
-        canvas.style.height = "100%";
+            container.style.width = canvas.style.width = w + "px";
+            container.style.height = canvas.style.height = h + "px";
+            container.style.top = Math.floor((window.innerHeight - h) / 2) + "px";
+            container.style.left = Math.floor((window.innerWidth - w) / 2) + "px";
+        }
 
-        //Resize window when chage orentation
-        window.addEventListener("orientationchange", event =>
-        {
-          canvas.style.width = "100%";
-        canvas.style.height = "100%";
-        });
-      } 
-      //PC
-      else 
-      {
-        canvas.style.width = "100%";
-        canvas.style.height = "100%";
-      }
-
-      loadingBar.style.display = "block";
-
-      var script = document.createElement("script");
-      script.src = loaderUrl;
-      script.onload = () => {
-        createUnityInstance(canvas, config, (progress) => {
-          progressBarFull.style.width = 100 * progress + "%";
-        }).then((unityInstance) => {
-          loadingBar.style.display = "none";
-        }).catch((message) => {
-          alert(message);
-        });
-      };
-      document.body.appendChild(script);
+        window.addEventListener('resize', onResize);
+        onResize();
     </script>
-    <script src="js/analytics_ubg_v1_4.js"></script>
-    <script src="js/ubg235_client_v1_1.js"></script>
-  </body>
+  <script src="js/analytics_ubg_v1_4.js"></script>
+  <script src="js/ubg235_client_v1_1.js"></script>
+</body>
 </html>
