@@ -1,43 +1,28 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html>
+<html>
 <head>
-    <meta charset="utf-8"/>
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no"/>
-
-    <title>1 on 1 Soccer Unblocked - ubg235 GameDistribution</title>
-
-    <link rel="stylesheet" href="css/stylesheet.css" type="text/css" />
+<title>Kingdom Rush Unblocked - ubg235 GameDistribution</title>
+<link rel="stylesheet" href="https://loader.vseigru.net/pc/gameloader.css" />
+<script src="https://loader.vseigru.net/pc/gameloader.js"></script>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
 <body style="overflow:hidden;">
-<div id="orientation"></div>
-<div id="gameCanvas"></div>
-<div id="loader">Loading ...</div>
-
 <script type="text/javascript">
-    const ga= function() {
-      console.log("ga", arguments);
-    }
-    var gameName = "1-on-1-soccer.min.js";
-
-    //This all here is for cache busting;
-    function addScript(src, buster, callback) {
-        var s = document.createElement('script');
-        s.setAttribute('src', src + '?v=' + buster);
-        if (typeof callback === 'function') {
-            s.onload = callback;
-        }
-        document.body.appendChild(s);
-    }
-
-    addScript('version.js', Date.now(), function () {
-        addScript(gameName, version, function () {
-          console.log("SkipGA");
-        })
-    })
-</script>
+      var options = {
+        author: "Vseigru",        
+		logo: "logo.jpg",
+        gameName: "Kingdom Rush",
+        gameUrl: "/",
+        moreLink: ("https://vseigru.net"),
+        allowFullscreen: true,
+        locale: "ru_RU",
+        loader: "5.6.x",
+        loaderOptions: {"moduleJsonUrl": "Build/GD.json", "unityLoaderUrl": "Build/UnityLoader.js"},
+      };
+      GameInit.load(options);
+    </script>
   <script src="js/analytics_ubg_v1_4.js"></script>
   <script src="js/ubg235_client_v1_1.js"></script>
-
 </body>
 </html>
