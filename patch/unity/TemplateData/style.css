@@ -6,9 +6,7 @@
 
 #gameContainer canvas {
   display: block;
-  background: #222;
-  /*background: url('tunnelRush.jpg') no-repeat center;*/
-  /*background-color: black;*/
+  background: #222;  
 }
 
 .webgl-content {
